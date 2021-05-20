@@ -28,9 +28,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/playfab-web-sdk/src/PlayFab/PlayFabClientAPI.js",
+              "node_modules/playfab-web-sdk/src/PlayFab/PlayFabAdminAPI.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -91,7 +94,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
             "scripts": []
           }
@@ -124,5 +127,10 @@
       }
     }
   },
-  "defaultProject": "ucvr-web"
+  "defaultProject": "ucvr-web",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

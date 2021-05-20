@@ -1,0 +1,40 @@
+{
+  "_from": "playfab-web-sdk",
+  "_id": "playfab-web-sdk@1.85.210427",
+  "_inBundle": false,
+  "_integrity": "sha512-bKEIh09QZOaSikurThkVrn5WchLUws+c+iyR4Hy9Cue15yZ+RZryvYsme6alr81TYvKPs21Dnby0sTHpBbfaZQ==",
+  "_location": "/playfab-web-sdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "playfab-web-sdk",
+    "name": "playfab-web-sdk",
+    "escapedName": "playfab-web-sdk",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/playfab-web-sdk/-/playfab-web-sdk-1.85.210427.tgz",
+  "_shasum": "cfab81ea795e2876c66e155bbe54607974c57e70",
+  "_spec": "playfab-web-sdk",
+  "_where": "D:\\Projects\\Angular\\ucvr-web",
+  "bugs": {
+    "url": "https://github.com/playfab/JavaScriptSDK/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Playfab SDK for JS client applications",
+  "homepage": "https://github.com/playfab/JavaScriptSDK#readme",
+  "license": "Apache-2.0",
+  "name": "playfab-web-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/playfab/JavaScriptSDK.git"
+  },
+  "version": "1.85.210427"
+}

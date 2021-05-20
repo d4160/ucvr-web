@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+  <button type="button" class="sidenav-toggle" mat-button (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+  </button>
+  <span>UC VR - User Manager</span>
+
+  <span class="toolbar-spacer"></span>
+
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon aria-hidden="false" aria-label="">more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="openAddContactDialog()">New Contact</button>
+    <button mat-menu-item (click)="toggleTheme.emit()">Toggle theme</button>
+    <button mat-menu-item (click)="toggleDir.emit()">Toggle dir</button>
+    <button mat-menu-item (click)="playfabLoginTest()">Login Test</button>
+    <button mat-menu-item (click)="getPlayersInSegment()">Players Test</button>
+    <button mat-menu-item (click)="getPlayerData()">Get Player Data Test</button>
+    <button mat-menu-item (click)="updatePlayerData()">Update Player Data Test</button>
+  </mat-menu>
+
+</mat-toolbar>
