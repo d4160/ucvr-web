@@ -31,8 +31,6 @@
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/playfab-web-sdk/src/PlayFab/PlayFabClientAPI.js",
-              "node_modules/playfab-web-sdk/src/PlayFab/PlayFabAdminAPI.js"
             ]
           },
           "configurations": {
