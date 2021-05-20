@@ -88,8 +88,8 @@ export class PlayfabService {
   }
 
   loginWithCustomID(
-    loginRequest: PlayFabClientModels.LoginWithCustomIDRequest,
-    loginCallback?: PlayFabModule.ApiCallback<PlayFabClientModels.LoginResult>): void {
+    loginRequest: any,
+    loginCallback?: any,): void {
     PlayFab.settings.titleId = '5702E';
     // PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
@@ -97,15 +97,15 @@ export class PlayfabService {
   }
 
   loginWithEmailAddress(
-    loginRequest: PlayFabClientModels.LoginWithEmailAddressRequest,
-    loginCallback?: PlayFabModule.ApiCallback<PlayFabClientModels.LoginResult>): void {
+    loginRequest: any,
+    loginCallback?: any): void {
     PlayFab.settings.titleId = '5702E';
     // PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
     PlayFabClientSDK.LoginWithEmailAddress(loginRequest, this.loginCallback);
   }
 
-  loginCallback(result: PlayFabModule.SuccessContainer<PlayFabClientModels.LoginResult>, error: PlayFabModule.IPlayFabError): void {
+  loginCallback(result: any, error: any): void {
     if (result !== null) {
         console.log('Congratulations, you made your first successful API call!');
     } else if (error !== null) {
@@ -116,7 +116,7 @@ export class PlayfabService {
   }
 
   // This is a utility function we haven't put into the core SDK yet.  Feel free to use it.
-  compileErrorReport(error: PlayFabModule.IPlayFabError): string {
+  compileErrorReport(error: any): string {
     if (error == null) {
       return '';
     }
