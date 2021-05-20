@@ -29,7 +29,7 @@
     "express": "^4.17.1",
     "path": "^0.12.7",
     "playfab-sdk": "^2.67.210427",
-    "playfab-web-sdk": "^1.85.210427",
+    "playfab-web-sdk": "file:playfab-web-sdk",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "typescript": "~4.0.2",
