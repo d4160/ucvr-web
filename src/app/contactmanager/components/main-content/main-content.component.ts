@@ -14,7 +14,7 @@ import { NewContactDialogComponent } from '../new-contact-dialog/new-contact-dia
 export class MainContentComponent implements OnInit {
 
   // user: User | undefined;
-  users!: Observable<any | undefined> | undefined;
+  users!: Observable<PlayFabAdminModels.PlayerProfile[] | undefined> | undefined;
 
   constructor(
     private route: ActivatedRoute,

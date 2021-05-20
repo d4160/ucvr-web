@@ -16,10 +16,10 @@ import { NewContactDialogComponent } from '../new-contact-dialog/new-contact-dia
 })
 export class NotesComponent implements OnInit, AfterViewInit {
 
-  @Input() notes!: Observable<any | undefined>;
+  @Input() notes!: Observable<PlayFabAdminModels.PlayerProfile[] | undefined>;
 
   displayedColumns: string[] = ['id', 'name', 'email', 'role'];
-  dataSource!: MatTableDataSource<any>;
+  dataSource!: MatTableDataSource<PlayFabAdminModels.PlayerProfile>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -35,7 +35,7 @@ export class NotesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.notes.subscribe(data => {
-      this.dataSource = new MatTableDataSource<any>(data);
+      this.dataSource = new MatTableDataSource<PlayFabAdminModels.PlayerProfile>(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });

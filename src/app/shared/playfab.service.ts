@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-// import { } from 'playfab-web-sdk';
+import { } from 'playfab-web-sdk';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 declare let PlayFab: any;
-declare let PlayFabClientSDK: any;
-declare let PlayFabAdminSDK: any;
+declare let PlayFabClientSDK: PlayFabClientModule.IPlayFabClient;
+declare let PlayFabAdminSDK: PlayFabAdminModule.IPlayFabAdmin;
 
-const playerData: any = {};
+let playerData: any = {};
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +14,18 @@ const playerData: any = {};
 export class PlayfabService {
 
   // tslint:disable-next-line:variable-name
-  private _users!: BehaviorSubject<any | undefined>;
+  private _users!: BehaviorSubject<PlayFabAdminModels.PlayerProfile[] | undefined>;
 
   private dataStore: {
-    users: any | undefined;
+    users: PlayFabAdminModels.PlayerProfile[] | undefined;
   };
 
   constructor() {
     this.dataStore = { users: [] };
-    this._users = new BehaviorSubject<any | undefined>([]);
+    this._users = new BehaviorSubject<PlayFabAdminModels.PlayerProfile[] | undefined>([]);
   }
 
-  get users(): Observable<any | undefined> {
+  get users(): Observable<PlayFabAdminModels.PlayerProfile[] | undefined> {
     return this._users.asObservable();
   }
 
@@ -33,39 +33,39 @@ export class PlayfabService {
     PlayFab.settings.titleId = '5702E';
     PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
-    // const request: PlayFabAdminModels.GetPlayersInSegmentRequest = {
-    //   SegmentId: '6E05839798DD526B'
-    // };
+    const request: PlayFabAdminModels.GetPlayersInSegmentRequest = {
+      SegmentId: '6E05839798DD526B'
+    };
 
-    // PlayFabAdminSDK.GetPlayersInSegment(request, (result) => {
-    //   console.log(result.data.PlayerProfiles);
-    //   this.dataStore.users = result.data.PlayerProfiles;
-    //   this._users.next(Object.assign({}, this.dataStore).users);
-    // });
+    PlayFabAdminSDK.GetPlayersInSegment(request, (result) => {
+      console.log(result.data.PlayerProfiles);
+      this.dataStore.users = result.data.PlayerProfiles;
+      this._users.next(Object.assign({}, this.dataStore).users);
+    });
   }
 
   getPlayerData(id: string, callback?: (roleValue: number) => void): void {
     PlayFab.settings.titleId = '5702E';
     PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
-    // const request: PlayFabAdminModels.GetUserDataRequest = {
-    //   PlayFabId: id,
-    //   Keys: ['PlayerData']
-    // };
+    const request: PlayFabAdminModels.GetUserDataRequest = {
+      PlayFabId: id,
+      Keys: ['PlayerData']
+    };
 
-    // PlayFabAdminSDK.GetUserData(request, (result) => {
-    //   console.log(result.data.Data);
-    //   const pd: any = result.data.Data;
-    //   // console.log(pd.PlayerData);
-    //   if (pd.PlayerData) {
-    //     playerData = JSON.parse(pd.PlayerData.Value);
-    //     console.log(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
+    PlayFabAdminSDK.GetUserData(request, (result) => {
+      console.log(result.data.Data);
+      const pd: any = result.data.Data;
+      // console.log(pd.PlayerData);
+      if (pd.PlayerData) {
+        playerData = JSON.parse(pd.PlayerData.Value);
+        console.log(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
 
-    //     if (callback) {
-    //       callback(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
-    //     }
-    //   }
-    // });
+        if (callback) {
+          callback(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
+        }
+      }
+    });
   }
 
   updatePlayerData(id: string, roleValue: number, callback?: (version: number) => void): void {
@@ -74,22 +74,22 @@ export class PlayfabService {
 
     playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue = roleValue;
 
-    // const request: PlayFabAdminModels.UpdateUserDataRequest = {
-    //   PlayFabId: id,
-    //   Data: {PlayerData: JSON.stringify(playerData)}
-    // };
+    const request: PlayFabAdminModels.UpdateUserDataRequest = {
+      PlayFabId: id,
+      Data: {PlayerData: JSON.stringify(playerData)}
+    };
 
-    // PlayFabAdminSDK.UpdateUserData(request, (result) => {
-    //   console.log(result.data.DataVersion);
-    //   if (callback) {
-    //     callback(result.data.DataVersion);
-    //   }
-    // });
+    PlayFabAdminSDK.UpdateUserData(request, (result) => {
+      console.log(result.data.DataVersion);
+      if (callback) {
+        callback(result.data.DataVersion);
+      }
+    });
   }
 
   loginWithCustomID(
-    loginRequest: any,
-    loginCallback?: any,): void {
+    loginRequest: PlayFabClientModels.LoginWithCustomIDRequest,
+    loginCallback?: PlayFabModule.ApiCallback<PlayFabClientModels.LoginResult>): void {
     PlayFab.settings.titleId = '5702E';
     // PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
@@ -97,15 +97,15 @@ export class PlayfabService {
   }
 
   loginWithEmailAddress(
-    loginRequest: any,
-    loginCallback?: any): void {
+    loginRequest: PlayFabClientModels.LoginWithEmailAddressRequest,
+    loginCallback?: PlayFabModule.ApiCallback<PlayFabClientModels.LoginResult>): void {
     PlayFab.settings.titleId = '5702E';
     // PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
     PlayFabClientSDK.LoginWithEmailAddress(loginRequest, this.loginCallback);
   }
 
-  loginCallback(result: any, error: any): void {
+  loginCallback(result: PlayFabModule.SuccessContainer<PlayFabClientModels.LoginResult>, error: PlayFabModule.IPlayFabError): void {
     if (result !== null) {
         console.log('Congratulations, you made your first successful API call!');
     } else if (error !== null) {
@@ -116,7 +116,7 @@ export class PlayfabService {
   }
 
   // This is a utility function we haven't put into the core SDK yet.  Feel free to use it.
-  compileErrorReport(error: any): string {
+  compileErrorReport(error: PlayFabModule.IPlayFabError): string {
     if (error == null) {
       return '';
     }

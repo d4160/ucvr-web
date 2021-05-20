@@ -60,7 +60,7 @@ export class ToolbarComponent implements OnInit {
 
     // this.playfab.loginWithCustomID(loginRequest);
 
-    const loginRequest: any = {
+    const loginRequest: PlayFabClientModels.LoginWithEmailAddressRequest = {
         TitleId: '5702E',
         Email: 'me31@me.com',
         Password: 'me.com31'
