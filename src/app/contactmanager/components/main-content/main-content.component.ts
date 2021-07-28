@@ -14,7 +14,7 @@ import { NewContactDialogComponent } from '../new-contact-dialog/new-contact-dia
 export class MainContentComponent implements OnInit {
 
   // user: User | undefined;
-  users!: Observable<PlayFabAdminModels.PlayerProfile[] | undefined> | undefined;
+  users!: Observable<PlayFabAdminModels.PlayerProfile[] | undefined>;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,9 +32,12 @@ export class MainContentComponent implements OnInit {
       //   id = 1;
       // }
 
-      this.users = undefined;
+      // this.users = undefined;
 
       this.users = this.service.users;
+      this.users.subscribe(val => {
+        // console.log(val?.length);
+      });
       this.service.getPlayersInSegment();
 
       // this.service.users.subscribe(users => {

@@ -14,11 +14,12 @@ import { PlayfabService } from '../../../shared/playfab.service';
 export class NewContactDialogComponent implements OnInit {
 
   roles = [
-      { id: 1, name: 'Estudiante' },
-      { id: 2, name: 'Docente' }
+      { id: "0", name: 'Estudiante' },
+      { id: "1", name: 'Docente' }
   ];
 
   roleValue = 0;
+  genreValue = 0;
   // user!: User;
 
   constructor(
@@ -36,8 +37,10 @@ export class NewContactDialogComponent implements OnInit {
   ngOnInit(): void {
     // this.user = new User();
 
-    this.userService.getPlayerData(this.data, (roleValue) => {
+    this.userService.getPlayerData(this.data, (roleValue, genreValue) => {
+      console.log(roleValue);
       this.roleValue = roleValue;
+      this.genreValue = genreValue;
     });
   }
 

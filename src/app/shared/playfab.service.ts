@@ -44,25 +44,31 @@ export class PlayfabService {
     });
   }
 
-  getPlayerData(id: string, callback?: (roleValue: number) => void): void {
+  getPlayerData(id: string, callback?: (roleValue: number, genreValue: number) => void): void {
     PlayFab.settings.titleId = '5702E';
     PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
     const request: PlayFabAdminModels.GetUserDataRequest = {
       PlayFabId: id,
-      Keys: ['PlayerData']
+      Keys: ['Genre', 'Role']
     };
 
     PlayFabAdminSDK.GetUserData(request, (result) => {
-      console.log(result.data.Data);
+      
       const pd: any = result.data.Data;
       // console.log(pd.PlayerData);
-      if (pd.PlayerData) {
-        playerData = JSON.parse(pd.PlayerData.Value);
-        console.log(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
+      // if (pd.PlayerData) {
+      //   playerData = JSON.parse(pd.PlayerData.Value);
+      //   console.log(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
 
+      //   if (callback) {
+      //     callback(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
+      //   }
+      // }
+      if (pd.Role) {
+        // console.log('Pass here');
         if (callback) {
-          callback(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
+          callback(pd.Role.Value, pd.Genre?.Value);
         }
       }
     });
@@ -72,11 +78,11 @@ export class PlayfabService {
     PlayFab.settings.titleId = '5702E';
     PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
-    playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue = roleValue;
+    //playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue = roleValue;
 
     const request: PlayFabAdminModels.UpdateUserDataRequest = {
       PlayFabId: id,
-      Data: {PlayerData: JSON.stringify(playerData)}
+      Data: {Role: roleValue.toString()} // JSON.stringify(playerData)
     };
 
     PlayFabAdminSDK.UpdateUserData(request, (result) => {
