@@ -6,7 +6,7 @@ declare let PlayFab: any;
 declare let PlayFabClientSDK: PlayFabClientModule.IPlayFabClient;
 declare let PlayFabAdminSDK: PlayFabAdminModule.IPlayFabAdmin;
 
-let playerData: any = {};
+// let playerData: any = {};
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,6 @@ export class PlayfabService {
     };
 
     PlayFabAdminSDK.GetPlayersInSegment(request, (result) => {
-      console.log(result.data.PlayerProfiles);
       this.dataStore.users = result.data.PlayerProfiles;
       this._users.next(Object.assign({}, this.dataStore).users);
     });
@@ -54,9 +53,8 @@ export class PlayfabService {
     };
 
     PlayFabAdminSDK.GetUserData(request, (result) => {
-      
+
       const pd: any = result.data.Data;
-      // console.log(pd.PlayerData);
       // if (pd.PlayerData) {
       //   playerData = JSON.parse(pd.PlayerData.Value);
       //   console.log(playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue);
@@ -66,7 +64,6 @@ export class PlayfabService {
       //   }
       // }
       if (pd.Role) {
-        // console.log('Pass here');
         if (callback) {
           callback(pd.Role.Value, pd.Genre?.Value);
         }
@@ -86,7 +83,6 @@ export class PlayfabService {
     };
 
     PlayFabAdminSDK.UpdateUserData(request, (result) => {
-      console.log(result.data.DataVersion);
       if (callback) {
         callback(result.data.DataVersion);
       }

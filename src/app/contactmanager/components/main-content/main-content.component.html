@@ -1,36 +1,15 @@
 <div *ngIf="(users | async)?.length; else loading">
   <mat-card>
     <mat-card-header>
-      <mat-card-title>Usuarios</mat-card-title>
+      <mat-card-title>Bienvenido al sistema de administración de usuarios de 'VR UC'</mat-card-title>
       <mat-card-subtitle>
-        Lista de todos los usuarios registrados
+        Puede buscar y cambiar el rol de los usuarios. Actualmente contamos con {{ (users | async)?.length }} usuarios registrados.
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <app-notes [notes]="users"></app-notes>
+      <app-users [users]="users"></app-users>
     </mat-card-content>
   </mat-card>
-  <!-- <mat-card>
-    <mat-card-header>
-      <mat-icon mat-card-avatar svgIcon="{{user.avatar}}"></mat-icon>
-      <mat-card-title>{{ user.name }}</mat-card-title>
-      <mat-card-subtitle>
-        Birthday {{ user.birthDate | date: 'd LLLL'}}
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-tab-group>
-        <mat-tab label="Bio">
-          <p>
-            {{user.bio}}
-          </p>
-        </mat-tab>
-        <mat-tab label="Notes">
-          <app-notes [notes]="user.notes"></app-notes>
-        </mat-tab>
-      </mat-tab-group>
-    </mat-card-content>
-  </mat-card> -->
 </div>
 
 <ng-template #loading>

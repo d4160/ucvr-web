@@ -3,9 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   // Lazy loading modules
-  { path: 'contactmanager', loadChildren: () => import('./contactmanager/contactmanager.module').then(m => m.ContactmanagerModule) },
+  { path: 'usermanager', loadChildren: () => import('./contactmanager/usermanager.module').then(m => m.UsermanagerModule) },
   { path: 'demo', loadChildren: () => import('./demo/demo.module').then(m => m.DemoModule) },
-  { path: '**', redirectTo: 'contactmanager' }
+  { path: '**', redirectTo: 'usermanager' }
 ];
 
 @NgModule({

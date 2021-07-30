@@ -10,7 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   styles: [
   ]
 })
-export class ContactmanagerAppComponent implements OnInit {
+export class UsermanagerAppComponent implements OnInit {
 
   constructor(iconRegistry: MatIconRegistry, sanatizer: DomSanitizer) {
     iconRegistry.addSvgIconSet(

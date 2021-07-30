@@ -1,8 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
-import { NewContactDialogComponent } from '../new-contact-dialog/new-contact-dialog.component';
-import { Router } from '@angular/router';
 import { PlayfabService } from '../../../shared/playfab.service';
 
 @Component({
@@ -17,32 +14,10 @@ export class ToolbarComponent implements OnInit {
   @Output() toggleDir = new EventEmitter<void>();
 
   constructor(
-    private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router,
     private playfab: PlayfabService) { }
 
   ngOnInit(): void {
-  }
-
-  openAddContactDialog(): void {
-    // this.dialog.open(NewContactDialogComponent, {
-    //   width: '450px'
-    // });
-    const dialogRef = this.dialog.open(NewContactDialogComponent, {
-      width: '450px'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-
-      if (result) {
-        this.openSnackBar('Contact added', 'Navigate')
-          .onAction().subscribe(() => {
-            this.router.navigate(['/contactmanager', result.id]);
-          });
-      }
-    });
   }
 
   openSnackBar(message: string, action: string): MatSnackBarRef<SimpleSnackBar> {

@@ -1,34 +1,31 @@
-<!-- <pre>
-  {{ notes | json }}
-</pre> -->
 <div class="mat-elevation-z8">
   <mat-form-field style="margin: 25px;">
     <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Maranatha2031" #input>
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" matSort>
 
-    <ng-container matColumnDef="id">
+    <ng-container matColumnDef="PlayerId">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let note">{{note.PlayerId}}</td>
+      <td mat-cell *matCellDef="let user">{{ user.PlayerId }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="name">
+    <ng-container matColumnDef="DisplayName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Display Name </th>
-      <td mat-cell *matCellDef="let note">{{note.DisplayName}}</td>
+      <td mat-cell *matCellDef="let user">{{ user.DisplayName }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="email">
+    <ng-container matColumnDef="EmailAddress">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-      <td mat-cell *matCellDef="let note">{{note.ContactEmailAddresses[0] ? note.ContactEmailAddresses[0].EmailAddress : ''}}</td>
+      <td mat-cell *matCellDef="let user">{{ user.ContactEmailAddresses[0]?.EmailAddress }}</td>
     </ng-container>
 
     <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Role </th>
-      <td mat-cell *matCellDef="let note">
-        <button mat-button color="warn" (click)="openDialog(note.PlayerId)">
-          <mat-icon>published_with_changes</mat-icon> Change
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-button color="warn" (click)="openDialog(user.PlayerId)">
+          <mat-icon>published_with_changes</mat-icon> Cambiar
         </button>
       </td>
     </ng-container>
@@ -38,7 +35,7 @@
 
     <!-- Row shown when there is no matching data. -->
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{ input.value }}"</td>
     </tr>
   </table>
 

@@ -1,21 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContactmanagerAppComponent } from './contactmanager-app.component';
+import { UsermanagerAppComponent } from './usermanager-app.component';
 import { MainContentComponent } from './components/main-content/main-content.component';
 
 const routes: Routes = [
   {
-    path: '', component: ContactmanagerAppComponent,
+    path: '', component: UsermanagerAppComponent,
     children: [
       { path: ':id', component: MainContentComponent },
       { path: '', component: MainContentComponent }
     ]
   },
-  { path: '**', redirectTo: 'contactmanager' }
+  { path: '**', redirectTo: 'usermanager' }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ContactmanagerRoutingModule { }
+export class UsermanagerRoutingModule { }
