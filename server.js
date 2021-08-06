@@ -17,6 +17,6 @@ https.createServer({
   key: fs.readFileSync('/etc/ssl/conti/llave_continental2021.key'),
   cert: fs.readFileSync('/etc/ssl/conti/continental.crt')
 }, app)
-.listen(6000, function () {
+.listen(6000, '0.0.0.0', function () {
   console.log('VRUC app listening on port 6000.')
 });
