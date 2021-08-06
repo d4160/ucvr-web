@@ -6,7 +6,7 @@ const helmet = require('helmet');
 
 const app = express();
 
-app.use(helmet()); // Add Helmet as a middleware
+// app.use(helmet()); // Add Helmet as a middleware
 
 // Serve static files
 app.use(express.static(__dirname + '/dist/ucvr-web'));
