@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatSnackBar, MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { PlayfabService } from '../../../shared/playfab.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private snackBar: MatSnackBar,
-    private playfab: PlayfabService) { }
+    private playfab: PlayfabService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -26,60 +28,8 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  playfabLoginTest(): void {
-    // const loginRequest: PlayFabClientModels.LoginWithCustomIDRequest = {
-    //     TitleId: '5702E',
-    //     CustomId: 'NodeJS hello',
-    //     CreateAccount: true
-    // };
-
-    // this.playfab.loginWithCustomID(loginRequest);
-
-    const loginRequest: PlayFabClientModels.LoginWithEmailAddressRequest = {
-        TitleId: '5702E',
-        Email: 'me31@me.com',
-        Password: 'me.com31'
-    };
-
-    this.playfab.loginWithEmailAddress(loginRequest);
-  }
-
-  getPlayersInSegment(): void {
-    this.playfab.getPlayersInSegment();
-  }
-
-  getPlayerData(): void {
-    this.playfab.getPlayerData('');
-  }
-
-  updatePlayerData(): void {
-    this.playfab.updatePlayerData('', 1);
-  }
-
-  loginCallback(error: null, result: null): void {
-    if (result !== null) {
-        console.log('Congratulations, you made your first successful API call!');
-    } else if (error !== null) {
-        console.log('Something went wrong with your first API call.');
-        console.log('Here\'s some debug information:');
-        console.log(this.compileErrorReport(error));
-    }
-  }
-
-  compileErrorReport(error: any): string {
-    if (error == null) {
-        return '';
-    }
-    let fullErrors = error?.errorMessage;
-    for (const paramName in error.errorDetails) {
-      if (error.errorDetails[paramName]) {
-        for (const msgIdx in error.errorDetails[paramName]) {
-          if (error.errorDetails[paramName][msgIdx]) {
-            fullErrors += '\n' + paramName + ': ' + error.errorDetails[paramName][msgIdx];
-          }
-        }
-      }
-    }
-    return fullErrors;
+  logout(): void {
+    this.playfab.logout();
+    this.router.navigate(['/login']);
   }
 }

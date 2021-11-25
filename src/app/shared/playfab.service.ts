@@ -12,6 +12,7 @@ declare let PlayFabAdminSDK: PlayFabAdminModule.IPlayFabAdmin;
   providedIn: 'root'
 })
 export class PlayfabService {
+  public userToken: string | undefined;
 
   // tslint:disable-next-line:variable-name
   private _users!: BehaviorSubject<PlayFabAdminModels.PlayerProfile[] | undefined>;
@@ -107,6 +108,8 @@ export class PlayfabService {
 
     PlayFabClientSDK.LoginWithEmailAddress(loginRequest, (result, error) => {
       if (result) {
+        this.userToken = result.data.EntityToken?.EntityToken;
+
         if (loginCallback) {
           loginCallback(result.data);
         }
@@ -117,6 +120,10 @@ export class PlayfabService {
         }
       }
     });
+  }
+
+  logout(): void {
+    this.userToken = undefined;
   }
 
   loginCallback(result: PlayFabModule.SuccessContainer<PlayFabClientModels.LoginResult>, error: PlayFabModule.IPlayFabError): void {

@@ -61,9 +61,10 @@ export class LoginComponent implements OnInit {
         if (role) {
           this.openSnackBar(`Bienvenido ${result.InfoResultPayload?.PlayerProfile?.DisplayName}!`, '');
           // console.log('Success logged as Teacher!');
-          setInterval(() => {
-            this.router.navigate(['/usermanager']);
-          }, 500);
+          this.router.navigate(['/usermanager']);
+          // setInterval(() => {
+          //   this.router.navigate(['/usermanager']);
+          // }, 500);
         }
         else {
           this.openSnackBar(`Error: No tiene los permisos para ingresar al sistema...`, 'Ok');
