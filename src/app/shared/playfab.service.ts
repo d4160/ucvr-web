@@ -75,7 +75,7 @@ export class PlayfabService {
     PlayFab.settings.titleId = '5702E';
     PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
-    //playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue = roleValue;
+    // playerData.inventoryManagerData.items[0].mutableProperties[1].value.m_ValueType.longValue = roleValue;
 
     const request: PlayFabAdminModels.UpdateUserDataRequest = {
       PlayFabId: id,
@@ -100,11 +100,23 @@ export class PlayfabService {
 
   loginWithEmailAddress(
     loginRequest: PlayFabClientModels.LoginWithEmailAddressRequest,
-    loginCallback?: PlayFabModule.ApiCallback<PlayFabClientModels.LoginResult>): void {
+    loginCallback?: (result: PlayFabClientModels.LoginResult) => any,
+    errorCallback?: (error: PlayFabModule.IPlayFabError) => any): void {
     PlayFab.settings.titleId = '5702E';
     // PlayFab.settings.developerSecretKey = '1YU3GNBGN6AA9KRQNXU84RPJY8GBP3FT3TP7TH1AISEB5GS8TI';
 
-    PlayFabClientSDK.LoginWithEmailAddress(loginRequest, this.loginCallback);
+    PlayFabClientSDK.LoginWithEmailAddress(loginRequest, (result, error) => {
+      if (result) {
+        if (loginCallback) {
+          loginCallback(result.data);
+        }
+      }
+      else if (error) {
+        if (errorCallback) {
+          errorCallback(error);
+        }
+      }
+    });
   }
 
   loginCallback(result: PlayFabModule.SuccessContainer<PlayFabClientModels.LoginResult>, error: PlayFabModule.IPlayFabError): void {
