@@ -17,9 +17,9 @@ app.get('/*', function(req, res) {
 });
 
 https.createServer({
-  key: fs.readFileSync('/etc/ssl/conti/llave_continental2021.key'),
-  cert: fs.readFileSync('/etc/ssl/conti/continental.crt')
+  key: fs.readFileSync('/certi/llave_continental2022.key'),
+  cert: fs.readFileSync('/certi/continental.crt')
 }, app)
-.listen(process.env.PORT || 443, '172.16.3.252', function () {
+.listen(process.env.PORT || 443, '182.160.26.81', function () {
   console.log('VRUC app listening on port 443.')
 });
