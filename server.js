@@ -34,10 +34,10 @@ https.createServer({
 });
 
 // // Redirect from http port 80 to https
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}, app).listen(process.env.PORT || 80, '0.0.0.0', function () {
-  console.log('VRUC app listening on port 80.')
-});
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+//     res.end();
+// }, app).listen(process.env.PORT || 80, '0.0.0.0', function () {
+//   console.log('VRUC app listening on port 80.')
+// });
