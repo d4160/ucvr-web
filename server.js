@@ -16,14 +16,14 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/ucvr-web/index.html'));
 });
 
-app.all('*', function(req, res, next){
-    console.log('req start: ',req.secure, req.hostname, req.originalurl, app.get('port'));
-    if (req.secure) {
-        return next();
-    }
+// app.all('*', function(req, res, next){
+//     console.log('req start: ',req.secure, req.hostname, req.originalurl, app.get('port'));
+//     if (req.secure) {
+//         return next();
+//     }
 
-    res.redirect('https://'+req.hostname + ':' + app.get('secPort') + req.originalurl);
-});
+//     res.redirect('https://'+req.hostname + ':' + app.get('secPort') + req.originalurl);
+// });
 
 https.createServer({
   key: fs.readFileSync('/certi/llave_continental2022.key'),
@@ -34,8 +34,10 @@ https.createServer({
 });
 
 // // Redirect from http port 80 to https
-// var http = require('http');
-// http.createServer(function (req, res) {
-//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-//     res.end();
-// }, app).listen(80);
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}, app).listen(process.env.PORT || 80, '0.0.0.0', function () {
+  console.log('VRUC app listening on port 80.')
+});
