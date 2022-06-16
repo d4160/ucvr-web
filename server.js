@@ -16,6 +16,15 @@ app.get('/*', function(req, res) {
   res.sendFile(path.join(__dirname + '/dist/ucvr-web/index.html'));
 });
 
+app.all('*', function(req, res, next){
+    console.log('req start: ',req.secure, req.hostname, req.originalurl, app.get('port'));
+    if (req.secure) {
+        return next();
+    }
+
+    res.redirect('https://'+req.hostname + ':' + app.get('secPort') + req.originalurl);
+});
+
 https.createServer({
   key: fs.readFileSync('/certi/llave_continental2022.key'),
   cert: fs.readFileSync('/certi/continental.crt')
@@ -24,9 +33,9 @@ https.createServer({
   console.log('VRUC app listening on port 443.')
 });
 
-// Redirect from http port 80 to https
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}, app).listen(80);
+// // Redirect from http port 80 to https
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+//     res.end();
+// }, app).listen(80);
